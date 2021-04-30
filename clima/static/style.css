@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #2b4d88;
+}
+
+nav p {
+  color: #97e9ff;
+}
+
+.poppins {
+  font-family: "Poppins", sans-serif;
+}
+.search form input[type="search"] {
+  padding: 10px;
+  width: 800px;
+  height: 45px;
+  outline: none;
+  border: none;
+  font-family: "Poppins", sans-serif;
+  background-color: transparent;
+  border-bottom: 2px solid #6bbef9;
+  color: white;
+}
+
+.search form input[type="search"]:focus {
+  background-color: white;
+  transition: 1s;
+  color: black;
+  border-bottom: none;
+}
+
+.search form button {
+  height: 45px;
+  outline: none;
+  border: none;
+  background-color: #85ba5e;
+  color: white;
+  font-family: "Poppins", sans-serif;
+}
+
+.search form button:hover {
+  background-color: #009ace;
+  color: white;
+  transition: 1s;
+}
+
+main .row .col-sm-3 {
+  background-color: #2c2c72;
+  border-left: 6px solid #00809b;
+  transition: 0.3s;
+}
+
+main .row .col-sm-3:hover {
+  cursor: pointer;
+  border: none;
+  color: white;
+  background-color: #85ba5e;
+}
+
+.next-day-report .main-carousel .carousel-cell {
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.next-day-report h4 {
+  color: white;
+}
+
+.next-day-report .main-carousel .carousel-cell:hover {
+  /*opacity: 0.2;*/
+  cursor: pointer;
+  background-color: #00809b;
+}
+
+/* position dots in carousel */
+.next-day-report .flickity-page-dots {
+  display: none;
+}
+/* white circles */
+.next-day-report.flickity-page-dots .dot {
+  display: none;
+}
+
+footer {
+  background-color: #00809b;
+}
+
+/*media query*/
+
+@media (max-width: 1000px) {
+  .search form input[type="search"] {
+    width: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .search form input[type="search"] {
+    width: 300px;
+  }
+}
+
+@media (max-width: 500px) {
+  .search form input[type="search"] {
+    width: 200px;
+  }
+}

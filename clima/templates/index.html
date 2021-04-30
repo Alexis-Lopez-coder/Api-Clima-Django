@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API - Clima</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      crossorigin="anonymous"
+    />
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href=" {% static 'style.css' %} " />
+
+    <!-- flickity CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/flickity@2/dist/flickity.min.css"
+    />
+
+	<script
+      src="https://kit.fontawesome.com/e4db7febb3.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <a href="/" class="navbar_brand">
+          <img src="{% static 'images/logo.png' %}" alt="logo" width="200px;" />
+        </a>
+
+        <p class="float-left poppins">
+          <i class="fas fa-map-marker-alt"></i>
+          {{ciudad}} , {{pais}}
+        </p>
+      </div>
+    </nav>
+
+    <!-- main -->
+
+    <div class="container text-center search">
+      <form method="get">
+        <input
+          type="search"
+          name="ciudad"
+          value="{{ciudad}}"
+          class="shadow-lg pl-2 mt-3"
+          placeholder="Ciudad"
+        />
+        <button class="px-5 mt-3">
+          <i class="fas fa-search-location"></i>
+        </button>
+      </form>
+    </div>
+
+    <!-- -->
+
+    <div class="text-center mt-5 container shadow-sm p-5">
+      {% if icono %}
+      <span
+        ><img
+          src="http://openweathermap.org/img/w/{{ icono }}.png"
+          alt="imagen clima"
+      /></span>
+      {%else%}
+      <img
+        src="{% static 'images/cloud.png' %}"
+        class="img-fluid"
+        width="50px;"
+      />
+      {% endif %}
+
+      <h3 class="poppins text-white">Hoy</h3>
+      <small class="text-white poppins">{{fecha}}</small><br />
+      <p class="text-white poppins">{{clima}}</p>
+      <h1 class="text-white poppins display-1">{{celcius|add:"0"}}&#8451;</h1>
+      <small class="poppins text-white">{{ciudad}}, {{pais}}</small><br />
+      <small class="poppins text-white"
+        >Sensacion Terminca: {{sensacion|add:"0"}} °C
+      </small>
+      <small class="poppins text-white px-3"
+        >Velocidad del viento: {{velocidad_viento}} km/h</small
+      >
+    </div>
+
+    <!-- -->
+    <main class="container my-5">
+      <div class="row">
+        <div class="col-sm-3 py-2 mt-2 shadow-lg text-center">
+          <img src="{% static 'images/pressure.png' %}" />
+          <small class="text-white poppins">Presion</small><br />
+          <h4 class="text-white poppins">{{presion}}</h4>
+        </div>
+
+        <div class="col-sm-3 py-2 mt-2 shadow-lg text-center">
+          <img src="{% static 'images/humidity.png' %}" />
+          <small class="text-white poppins">Humedad</small><br />
+          <h4 class="text-white poppins">{{humedad}}%</h4>
+        </div>
+
+        <div class="col-sm-3 py-2 mt-2 shadow-lg text-center">
+          <img src="{% static 'images/visible.png' %}" />
+          <small class="text-white poppins">Visiblidad</small><br />
+          <h4 class="text-white poppins">{{visibilidad}}</h4>
+        </div>
+
+        <div class="col-sm-3 py-2 mt-2 shadow-lg text-center">
+          <img src="{% static 'images/temperature.png' %}" />
+          <small class="text-white poppins">Fahrenheit</small><br />
+          <h4 class="text-white poppins">{{fahrenheit|add:"0"}}&#8457;</h4>
+        </div>
+      </div>
+    </main>
+
+    <!-- PROXIMOS 5 DIAS-->
+    {% if data_prox_5 %}
+    <div class="container-fluid my-5 next-day-report">
+      <h4 class="text-white text-center poppins pt-5 pb-2">
+        Pronostico proximos 5 días
+      </h4>
+      <div
+        class="main-carousel my-5"
+        data-flickity='{ "imagesLoaded": true, "percentPosition": false }'
+      >
+        {% for celcius_prox_5, fahrenheit_prox_5, velocidad_viento_prox_5,clima_prox_5, presion_prox_5, humedad_prox_5,visibilidad_prox_5, fecha_prox_5, icono_prox_5 in data_prox_5 %}
+        <!-- -->
+        <div class="carousel-cell p-5 text-center shadow-lg">
+          <h6 class="text-white">{{fecha_prox_5}}</h6>
+          <!--<img
+            src="{% static 'images/logo.png' %}"
+            class="img-fluid"
+            width="100px;"
+          />-->
+          <img
+            src="http://openweathermap.org/img/w/{{ icono_prox_5 }}.png"
+            alt="imagen clima"
+          />
+          <h4>{{celcius_prox_5|add:"0"}}&#8451;</h4>
+
+          <img src="{% static 'images/pressure.png' %}" />
+          <small class="text-white poppins">Presion</small><br />
+          <h4 class="text-white poppins">{{presion_prox_5}}</h4>
+
+          <hr />
+          <img src="{% static 'images/humidity.png' %}" />
+          <small class="text-white poppins">Humedad</small><br />
+          <h4 class="text-white poppins">{{humedad_prox_5}}%</h4>
+          <hr />
+          <img src="{% static 'images/visible.png' %}" />
+          <small class="text-white poppins">Visiblidad</small><br />
+          <h4 class="text-white poppins">{{visibilidad_prox_5}}</h4>
+          <hr />
+          <img src="{% static 'images/temperature.png' %}" />
+          <small class="text-white poppins">Fahrenheit</small><br />
+          <h4 class="text-white poppins">
+            {{fahrenheit_prox_5|add:"0"}}&#8457;
+          </h4>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- footer-->
+
+    <footer class="container-fluid mt-5 text-center">
+      <small class="poppins text-white">&copy; copyright 2021</small>
+    </footer>
+
+    <!-- flickity JavaScript CDN -->
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+  </body>
+</html>
